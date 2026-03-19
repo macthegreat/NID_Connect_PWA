@@ -63,7 +63,7 @@ Open deployed frontend and set **API Base URL** to your Render backend URL.
 ## 3) First-time system bootstrap
 1. In frontend, click **Create First Supervisor**.
 2. Login with supervisor account.
-3. Create officers and agents.
+3. Create other supervisor accounts (optional), then create officers and agents.
 4. Start operational flow:
    - agent submits person by IDNO
    - officer registers same IDNO

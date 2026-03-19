@@ -53,6 +53,14 @@ export function validateCreateOfficer(req, _res, next) {
   next();
 }
 
+export function validateCreateSupervisor(req, _res, next) {
+  const { name, email, password } = req.body;
+  ensure(isNonEmptyString(name, 2, 120), 'Supervisor name must be between 2 and 120 characters.');
+  ensure(isValidEmail(email), 'Invalid supervisor email format.');
+  ensure(isValidPassword(password), 'Supervisor password must be at least 8 characters.');
+  next();
+}
+
 export function validateCreateAgent(req, _res, next) {
   const { name, email, password, commissionPerPerson } = req.body;
   ensure(isNonEmptyString(name, 2, 120), 'Agent name must be between 2 and 120 characters.');

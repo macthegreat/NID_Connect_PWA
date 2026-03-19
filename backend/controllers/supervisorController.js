@@ -26,6 +26,20 @@ export async function createOfficer(req, res) {
   return res.status(201).json(created);
 }
 
+export async function createSupervisor(req, res) {
+  const { name, email, password } = req.body;
+  const passwordHash = await bcrypt.hash(password, 12);
+
+  const created = await query(
+    `INSERT INTO users (name, email, password_hash, role, supervisor_id)
+     VALUES ($1, $2, $3, 'supervisor', $4)
+     RETURNING id, name, email, role, supervisor_id, created_at`,
+    [name.trim(), email.toLowerCase(), passwordHash, req.user.id]
+  );
+
+  return res.status(201).json(created.rows[0]);
+}
+
 export async function createAgent(req, res) {
   const { name, email, password, commissionPerPerson } = req.body;
   const passwordHash = await bcrypt.hash(password, 12);

@@ -64,6 +64,7 @@ Production-oriented backend for:
 - `POST /auth/login`
 
 Supervisor:
+- `POST /supervisor/create-supervisor`
 - `POST /supervisor/create-officer`
 - `POST /supervisor/create-agent`
 - `PATCH /supervisor/agent/:agentId/commission`
@@ -122,6 +123,7 @@ python3 -m http.server 4173
 
 Features:
 - login + one-time supervisor bootstrap account creation
+- supervisor can create additional supervisor accounts
 - role-based dashboards for supervisor, officer, and agent
 - create officer/agent, update commission, run reports, list team
 - register users, submit leads, view matches/commission

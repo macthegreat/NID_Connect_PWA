@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   validateLogin,
+  validateCreateSupervisor,
   validateRegistration,
   validateCommissionUpdate,
   validateWindowParam,
@@ -30,6 +31,18 @@ test('validateLogin accepts valid credentials', async () => {
 test('validateLogin rejects invalid email', async () => {
   await assert.rejects(() => runMiddleware(validateLogin, {
     body: { email: 'not-an-email', password: 'password123' }
+  }));
+});
+
+test('validateCreateSupervisor accepts valid payload', async () => {
+  await assert.doesNotReject(() => runMiddleware(validateCreateSupervisor, {
+    body: { name: 'Second Supervisor', email: 's2@example.com', password: 'password123' }
+  }));
+});
+
+test('validateCreateSupervisor rejects short password', async () => {
+  await assert.rejects(() => runMiddleware(validateCreateSupervisor, {
+    body: { name: 'Second Supervisor', email: 's2@example.com', password: 'short' }
   }));
 });
 

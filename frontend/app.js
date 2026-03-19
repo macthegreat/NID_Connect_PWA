@@ -77,6 +77,17 @@ function bindGlobalLookup() {
 function renderSupervisor() {
   el.dashboardBody.innerHTML = `
     <div class="block">
+      <h3>Create supervisor</h3>
+      <p>You can create additional supervisor accounts from here.</p>
+      <div class="grid three">
+        ${makeInput('Name', 'supervisorName', 'text', 'Supervisor Name')}
+        ${makeInput('Email', 'supervisorEmail', 'email', 'supervisor@email.com')}
+        ${makeInput('Password', 'supervisorPassword', 'password', 'StrongPass123')}
+      </div>
+      <button id="createSupervisorBtn">Create supervisor</button>
+    </div>
+
+    <div class="block">
       <h3>Create officer</h3>
       <div class="grid three">
         ${makeInput('Name', 'officerName', 'text', 'Officer Name')}
@@ -114,6 +125,17 @@ function renderSupervisor() {
       </div>
     </div>
   `;
+
+  document.getElementById('createSupervisorBtn').onclick = async () => {
+    try {
+      const data = await api('/supervisor/create-supervisor', 'POST', {
+        name: document.getElementById('supervisorName').value,
+        email: document.getElementById('supervisorEmail').value,
+        password: document.getElementById('supervisorPassword').value
+      });
+      log(data, 'Supervisor created');
+    } catch (error) { log({ message: error.message }, 'Error'); }
+  };
 
   document.getElementById('createOfficerBtn').onclick = async () => {
     try {
